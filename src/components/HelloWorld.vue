@@ -1,11 +1,14 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, veritatis pariatur ipsam dolorem numquam est, nesciunt repudiandae esse impedit nisi sit fuga doloremque tempore architecto ipsa quos quam minus assumenda ad molestias harum quae atque. Nesciunt architecto corrupti accusantium, sequi facilis amet consequatur neque illum necessitatibus commodi est saepe? Quidem, accusantium est. Dolorum, nam odio corrupti beatae veritatis tempora officia voluptatum, ipsum fugiat adipisci ullam perspiciatis laboriosam blanditiis qui explicabo? Magni, maiores! Fuga eius quisquam unde aspernatur asperiores sunt accusantium voluptatem, maxime ducimus cumque, itaque iusto illum repellendus. Maiores quisquam minima dolore, qui modi amet nobis consequatur laborum aspernatur eveniet.</p>
+    <button @click="increaseLinesToTruncate">+</button>
+    <button @click="decreaseLinesToTruncate">-</button>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, veritatis pariatur ipsam dolorem numquam est, nesciunt repudiandae esse impedit nisi sit fuga doloremque tempore architecto ipsa quos quam minus assumenda ad molestias harum quae atque. Nesciunt architecto corrupti accusantium, sequi facilis amet consequatur neque illum necessitatibus commodi est saepe? Quidem, accusantium est. Dolorum, nam odio corrupti beatae veritatis tempora officia voluptatum, ipsum fugiat adipisci ullam perspiciatis laboriosam blanditiis qui explicabo? Magni, maiores!</p>
+    
     <hr />
-    <input v-debounce="500" type="text" placeholder="What do you think about custom directives?" v-model.lazy="opinion">
-    <p>Your opinion: {{ opinion }}</p>
+    <input type="text" placeholder="What do you think about custom directives?" v-model="opinion">
+    <p class="opinion">Your opinion:</p>
+    <p class="opinion">{{ opinion }}</p>
   </div>
 </template>
 
@@ -17,7 +20,16 @@ export default {
   },
   data() {
     return {
-      opinion: ''
+      linesToTruncate: 5,
+      opinion: '',
+    }
+  },
+  methods: {
+    decreaseLinesToTruncate() {
+      this.linesToTruncate = this.linesToTruncate > 1 ? this.linesToTruncate - 1 : 1;
+    },
+    increaseLinesToTruncate() {
+      this.linesToTruncate += 1;
     }
   }
 }
@@ -45,5 +57,18 @@ input {
 }
 hr {
   margin: 40px 0;
+}
+p {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+button {
+  padding: 5px 10px;
+  margin: 5px;
+}
+.opinion {
+  width: 100px;
+  word-wrap: break-word;
 }
 </style>
