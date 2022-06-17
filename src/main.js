@@ -33,12 +33,13 @@ Vue.directive('focus', {
 
 
 
-Vue.directive('truncate', function (el, binding) {
-  el.style.overflow = 'hidden'
-  el.style.display = '-webkit-box'
-  el.style.cursor = 'pointer'
-  el.style['-webkit-box-orient'] = 'vertical'
-  el.style['-webkit-line-clamp'] = binding.value
+Vue.directive('truncate', {
+  bind (el, binding) {
+    el.style.overflow = 'hidden'
+    el.style.display = '-webkit-box'
+    el.style['-webkit-box-orient'] = 'vertical'
+    el.style['-webkit-line-clamp'] = binding.value
+  }
 })
 
 
@@ -69,6 +70,14 @@ Vue.directive('debounce', {
     el.removeEventListener('input', debouncedChange())
   }
 })
+
+
+
+
+
+
+
+
 
 new Vue({
   render: h => h(App),

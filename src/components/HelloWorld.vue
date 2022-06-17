@@ -3,7 +3,7 @@
     <h1>{{ msg }}</h1>
     <button @click="increaseLinesToTruncate">+</button>
     <button @click="decreaseLinesToTruncate">-</button>
-    <p>In addition to the default set of directives shipped in core (v-model and v-show), Vue also allows you to register your own custom directives. Note that in Vue 2.0, the primary form of code reuse and abstraction is components - however there may be cases where you need some low-level DOM access on plain elements, and this is where custom directives would still be useful.</p>
+    <p>Lines to truncate: {{ linesToTruncate }}. In addition to the default set of directives shipped in core (v-model and v-show), Vue also allows you to register your own custom directives. Note that in Vue 2.0, the primary form of code reuse and abstraction is components - however there may be cases where you need some low-level DOM access on plain elements, and this is where custom directives would still be useful.</p>
     <hr />
     <input type="text" placeholder="What do you think about custom directives?" v-model="opinion">
     <p v-if="opinion.length > 0" class="opinion">Your opinion:</p>
