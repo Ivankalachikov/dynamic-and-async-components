@@ -7,7 +7,7 @@
     
     <hr />
     <input type="text" placeholder="What do you think about custom directives?" v-model="opinion">
-    <p class="opinion">Your opinion:</p>
+    <p v-if="opinion.length > 0" class="opinion">Your opinion:</p>
     <p class="opinion">{{ opinion }}</p>
   </div>
 </template>
