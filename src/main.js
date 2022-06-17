@@ -2,19 +2,36 @@ import Vue from 'vue'
 import App from './App.vue'
 import {debounce} from 'lodash'
 
-Vue.config.productionTip = false
 
-const debouncedChange = (el, delay) => {
-  return debounce(() => {
-    el.dispatchEvent(new Event('change'))
-  }, delay)
-}
+
+
+
+
+
+
+
 
 Vue.directive('focus', {
   inserted(el) {
     el.focus();
   } 
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Vue.directive('truncate', function (el, binding) {
   el.style.overflow = 'hidden'
@@ -23,6 +40,25 @@ Vue.directive('truncate', function (el, binding) {
   el.style['-webkit-box-orient'] = 'vertical'
   el.style['-webkit-line-clamp'] = binding.value
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const debouncedChange = (el, delay) => {
+  return debounce(() => {
+    el.dispatchEvent(new Event('change'))
+  }, delay)
+}
 
 Vue.directive('debounce', {
   bind(el, binding) {
