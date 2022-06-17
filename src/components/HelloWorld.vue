@@ -3,8 +3,7 @@
     <h1>{{ msg }}</h1>
     <button @click="increaseLinesToTruncate">+</button>
     <button @click="decreaseLinesToTruncate">-</button>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto, veritatis pariatur ipsam dolorem numquam est, nesciunt repudiandae esse impedit nisi sit fuga doloremque tempore architecto ipsa quos quam minus assumenda ad molestias harum quae atque. Nesciunt architecto corrupti accusantium, sequi facilis amet consequatur neque illum necessitatibus commodi est saepe? Quidem, accusantium est. Dolorum, nam odio corrupti beatae veritatis tempora officia voluptatum, ipsum fugiat adipisci ullam perspiciatis laboriosam blanditiis qui explicabo? Magni, maiores!</p>
-    
+    <p>In addition to the default set of directives shipped in core (v-model and v-show), Vue also allows you to register your own custom directives. Note that in Vue 2.0, the primary form of code reuse and abstraction is components - however there may be cases where you need some low-level DOM access on plain elements, and this is where custom directives would still be useful.</p>
     <hr />
     <input type="text" placeholder="What do you think about custom directives?" v-model="opinion">
     <p v-if="opinion.length > 0" class="opinion">Your opinion:</p>
@@ -59,7 +58,7 @@ hr {
   margin: 40px 0;
 }
 p {
-  max-width: 1200px;
+  max-width: 700px;
   margin-left: auto;
   margin-right: auto;
 }
