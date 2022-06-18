@@ -32,13 +32,14 @@ Vue.directive('focus', {
 
 const truncateFunctionByType = {
   'lines': (el, count) => {
+    el.classList.remove('with-gradient')
     el.style.overflow = 'hidden'
     el.style.display = '-webkit-box'
     el.style['-webkit-box-orient'] = 'vertical'
     el.style['-webkit-line-clamp'] = count
   },
   'height': (el, count) => {
-    const multiplier = 10
+    const multiplier = 18
     el.style.overflow = 'hidden'
     el.style.maxHeight = `${count * multiplier}px`
     el.classList.add('with-gradient')
@@ -48,6 +49,7 @@ const truncateFunctionByType = {
 Vue.directive('truncate', (el, binding) => {
   const type = binding.arg || 'lines'
   const count = binding.value
+  el.style = null // reset previous styles
   truncateFunctionByType[type](el, count)
 })
 
