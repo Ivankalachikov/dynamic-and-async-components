@@ -1,9 +1,6 @@
 <template>
   <div class="hello">
-
     <h1>{{ msg }}</h1>
-    <hr />
-
     <p>
       <button @click="increaseCountToTruncate">+</button>
       <button @click="decreaseCountToTruncate">-</button>
@@ -16,13 +13,17 @@
         <option value="height">Height</option>
       </select>
     </label>
-
-    <p v-truncate:[truncateType]="countToTruncate">Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, ex laborum dicta veniam possimus, quis cumque minima itaque sit suscipit, rem qui dolores facere placeat temporibus est. Omnis, quasi ipsam. Odio nam, velit aperiam libero esse aut ex quos, dicta unde obcaecati repudiandae reiciendis maxime, suscipit mollitia. Vitae, non enim ab provident impedit quibusdam, ducimus eaque aperiam distinctio sit sequi incidunt magnam dignissimos, corporis saepe delectus placeat. Doloremque laborum soluta dicta. Ex voluptatibus rerum consequuntur, ipsum in molestiae cupiditate blanditiis repellat libero commodi voluptatem quas temporibus deserunt ab sequi maxime sit? Incidunt, officia! Illum officia, sunt at quod a natus.</p>
-
+    <p v-truncate:[truncateType]="countToTruncate">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, ex laborum dicta veniam possimus, quis cumque minima itaque sit suscipit, rem qui dolores facere placeat temporibus est. Omnis, quasi ipsam. Odio nam, velit aperiam libero esse aut ex quos, dicta unde obcaecati repudiandae reiciendis maxime, suscipit mollitia. Vitae, non enim ab provident impedit quibusdam, ducimus eaque aperiam distinctio sit sequi incidunt magnam dignissimos, corporis saepe delectus placeat. Doloremque laborum soluta dicta. Ex voluptatibus rerum consequuntur, ipsum in molestiae cupiditate blanditiis repellat libero commodi voluptatem quas temporibus deserunt ab sequi maxime sit? Incidunt, officia! Illum officia, sunt at quod a natus.
+    </p>
     <hr />
-
-    <input type="text" placeholder="What do you think about custom directives?" v-model="opinion">
-
+    <input 
+      v-debounce="300"
+      v-focus
+      v-model.lazy="opinion"
+      type="text"
+      placeholder="What do you think about custom directives?"
+    >
     <p v-if="opinion.length > 0" class="opinion">Your opinion:</p>
     <p class="opinion">{{ opinion }}</p>
   </div>

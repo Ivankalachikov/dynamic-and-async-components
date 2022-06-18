@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import {debounce} from 'lodash'
+import { debounce } from 'lodash'
 
 
 
@@ -74,7 +74,7 @@ const debouncedChange = (el, delay) => {
 
 Vue.directive('debounce', {
   bind(el, binding) {
-    const delay = binding.value
+    const delay = binding.value || 300
     el.addEventListener('input', debouncedChange(el, delay))
   },
   unbind(el) {
