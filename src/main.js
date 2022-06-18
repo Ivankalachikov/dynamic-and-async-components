@@ -30,16 +30,25 @@ Vue.directive('focus', {
 
 
 
-
-
-
-Vue.directive('truncate', {
-  bind (el, binding) {
+const truncateFunctionByType = {
+  'lines': (el, count) => {
     el.style.overflow = 'hidden'
     el.style.display = '-webkit-box'
     el.style['-webkit-box-orient'] = 'vertical'
-    el.style['-webkit-line-clamp'] = binding.value
+    el.style['-webkit-line-clamp'] = count
+  },
+  'height': (el, count) => {
+    const multiplier = 10
+    el.style.overflow = 'hidden'
+    el.style.maxHeight = `${count * multiplier}px`
+    el.classList.add('with-gradient')
   }
+}
+
+Vue.directive('truncate', (el, binding) => {
+  const type = binding.arg || 'lines'
+  const count = binding.value
+  truncateFunctionByType[type](el, count)
 })
 
 

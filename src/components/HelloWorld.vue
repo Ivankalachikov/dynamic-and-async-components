@@ -1,11 +1,17 @@
 <template>
   <div class="hello">
+
     <h1>{{ msg }}</h1>
-    <button @click="increaseLinesToTruncate">+</button>
-    <button @click="decreaseLinesToTruncate">-</button>
-    <p>Lines to truncate: {{ linesToTruncate }}. In addition to the default set of directives shipped in core (v-model and v-show), Vue also allows you to register your own custom directives. Note that in Vue 2.0, the primary form of code reuse and abstraction is components - however there may be cases where you need some low-level DOM access on plain elements, and this is where custom directives would still be useful.</p>
+
+    <button @click="increaseCountToTruncate">+</button>
+    <button @click="decreaseCountToTruncate">-</button>
+
+    <p v-truncate="countToTruncate">Count to truncate: {{ countToTruncate }}.<br /> In addition to the default set of directives shipped in core (v-model and v-show), Vue also allows you to register your own custom directives. Note that in Vue 2.0, the primary form of code reuse and abstraction is components - however there may be cases where you need some low-level DOM access on plain elements, and this is where custom directives would still be useful.</p>
+
     <hr />
+
     <input type="text" placeholder="What do you think about custom directives?" v-model="opinion">
+    
     <p v-if="opinion.length > 0" class="opinion">Your opinion:</p>
     <p class="opinion">{{ opinion }}</p>
   </div>
@@ -19,16 +25,16 @@ export default {
   },
   data() {
     return {
-      linesToTruncate: 5,
+      countToTruncate: 5,
       opinion: '',
     }
   },
   methods: {
-    decreaseLinesToTruncate() {
-      this.linesToTruncate = this.linesToTruncate > 1 ? this.linesToTruncate - 1 : 1;
+    decreaseCountToTruncate() {
+      this.countToTruncate = this.countToTruncate > 1 ? this.countToTruncate - 1 : 1;
     },
-    increaseLinesToTruncate() {
-      this.linesToTruncate += 1;
+    increaseCountToTruncate() {
+      this.countToTruncate += 1;
     }
   }
 }
@@ -70,4 +76,16 @@ button {
   width: 100px;
   word-wrap: break-word;
 }
+.with-gradient {
+  position: relative;
+}
+.with-gradient::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,1));
+  }
 </style>
