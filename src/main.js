@@ -14,7 +14,7 @@ import { debounce } from 'lodash'
 Vue.directive('focus', {
   inserted(el) {
     el.focus();
-  } 
+  }
 })
 
 
@@ -47,8 +47,7 @@ const truncateFunctionByType = {
 }
 
 Vue.directive('truncate', (el, binding) => {
-  const type = binding.arg || 'lines'
-  const count = binding.value
+  const { arg:type = "lines", value: count } = binding
   el.style = null // reset previous styles
   truncateFunctionByType[type](el, count)
 })
