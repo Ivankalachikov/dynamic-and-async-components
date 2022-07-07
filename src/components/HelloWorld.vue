@@ -1,107 +1,101 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      <button @click="increaseCountToTruncate">+</button>
-      <button @click="decreaseCountToTruncate">-</button>
-      Count to truncate: {{ countToTruncate }}
-    </p>
-    <label>
-      Truncate type:
-      <select v-model="truncateType">
-        <option value="lines">Lines</option>
-        <option value="height">Height</option>
-      </select>
-    </label>
-    <p v-truncate:[truncateType]="countToTruncate">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Non, ex laborum dicta veniam possimus, quis cumque minima itaque sit suscipit, rem qui dolores facere placeat temporibus est. Omnis, quasi ipsam. Odio nam, velit aperiam libero esse aut ex quos, dicta unde obcaecati repudiandae reiciendis maxime, suscipit mollitia. Vitae, non enim ab provident impedit quibusdam, ducimus eaque aperiam distinctio sit sequi incidunt magnam dignissimos, corporis saepe delectus placeat. Doloremque laborum soluta dicta. Ex voluptatibus rerum consequuntur, ipsum in molestiae cupiditate blanditiis repellat libero commodi voluptatem quas temporibus deserunt ab sequi maxime sit? Incidunt, officia! Illum officia, sunt at quod a natus.
-    </p>
-    <hr />
-    <input
-      v-focus
-      v-debounce="1000"
-      v-model.lazy="opinion"
-      type="text"
-      placeholder="What do you think about custom directives?"
-    >
-    <p v-if="opinion.length > 0" class="opinion">Your opinion:</p>
-    <p class="opinion">{{ opinion }}</p>
+    <h1>Dynamic and async components</h1>
+    <div class="form">
+      <transition name="slide" mode="out-in">
+        <keep-alive exclude="Card">
+          <component :is="currentComponent" />
+        </keep-alive>
+      </transition>
+    </div>
+    <button @click="prevStep" :disabled="currentStep === 0">
+      Prev
+    </button>
+    <button @click="nextStep" :disabled="currentStep + 1 === allSteps.length">
+      Next
+    </button>
   </div>
 </template>
 
 <script>
+import Card from './Card'
+import Name from './Name'
+
+const allSteps = [
+  'Name', 
+  'Address',
+  Card
+];
+
 export default {
+  components: { 
+    Address: () => import('./Address'), 
+    Card,
+    Name,
+  },
   name: 'HelloWorld',
   props: {
     msg: String
   },
   data() {
     return {
-      countToTruncate: 5,
-      opinion: '',
-      truncateType: 'lines',
+      allSteps: allSteps,
+      currentStep: 0,
+    }
+  },
+  computed: {
+    currentComponent() {
+      return allSteps[this.currentStep];
     }
   },
   methods: {
-    decreaseCountToTruncate() {
-      this.countToTruncate = this.countToTruncate > 1 ? this.countToTruncate - 1 : 1;
+    nextStep() {
+      this.currentStep += 1;
     },
-    increaseCountToTruncate() {
-      this.countToTruncate += 1;
-    }
+    prevStep() {
+      this.currentStep -= 1;
+    },
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+::v-deep label {
+  display: block;
+  margin-bottom: 4px;
+  text-align: left;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-input {
+::v-deep input {
   padding: 10px 15px;
-  width: 400px;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
 }
-select {
-  padding: 5px 10px;
-}
-hr {
-  margin: 40px 0;
-}
-p {
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+h1 {
+  color: #444;
+  margin-bottom: 40px;
+  font-weight: 400;
 }
 button {
   padding: 5px 10px;
   margin: 5px;
 }
-.opinion {
-  width: 100px;
-  word-wrap: break-word;
+.form {
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
 }
-.with-gradient {
-  position: relative;
+.slide-leave-active,
+.slide-enter-active {
+  transition: 0.2s;
 }
-.with-gradient::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 40px;
-    background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,1));
-  }
+.slide-enter {
+  transform: translate(100%, 0);
+  opacity: 0;
+}
+.slide-leave-to {
+  transform: translate(-100%, 0);
+  opacity: 0;
+}
 </style>

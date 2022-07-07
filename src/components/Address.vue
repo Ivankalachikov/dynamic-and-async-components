@@ -1,0 +1,20 @@
+<template>
+  <div>
+    <label>
+      Address:
+      <input type="text" v-model="value">
+    </label>
+  </div>
+</template>
+
+<script>
+  export default {
+    // eslint-disable-next-line vue/multi-word-component-names
+    name: "Address",
+    data() {
+      return {
+        value: ''
+      }
+    },
+  }
+</script>
