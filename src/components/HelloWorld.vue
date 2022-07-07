@@ -18,20 +18,38 @@
 </template>
 
 <script>
-import Card from './Card'
-import Name from './Name'
+import Address from './Address'
+import Spinner from './Spinner'
+import Error from './Error'
 
 const allSteps = [
   'Name', 
-  'Address',
-  Card
+  Address,
+  'Card',
+  'ThankYou',
 ];
 
 export default {
   components: { 
-    Address: () => import('./Address'), 
-    Card,
-    Name,
+    Address,
+    Card: () => ({
+      component: new Promise((resolve) => 
+        setTimeout(() => {
+          resolve(import('./Card'))
+        }, 1500)
+      ),
+      loading: Spinner,
+    }),
+    Name: () => import('./Name'),
+    ThankYou: () => ({
+      component: new Promise((resolve, reject) => 
+        setTimeout(() => {
+          reject();
+        }, 1500)
+      ),
+      loading: Spinner,
+      error: Error,
+    }),
   },
   name: 'HelloWorld',
   props: {
@@ -79,6 +97,10 @@ h1 {
 button {
   padding: 5px 10px;
   margin: 5px;
+}
+img {
+  height: 40px;
+  width: 40px;
 }
 .form {
   width: 400px;
