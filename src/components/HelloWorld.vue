@@ -18,7 +18,8 @@
     </p>
     <hr />
     <input
-      v-debounce="300"
+      v-focus
+      v-debounce="1000"
       v-model.lazy="opinion"
       type="text"
       placeholder="What do you think about custom directives?"
