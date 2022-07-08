@@ -2,11 +2,17 @@
   <div class="hello">
     <h1>Dynamic and async components</h1>
     <div class="form">
+
+      <component :is="`h${currentStep + 2}`">Step {{currentStep + 1}}</component>
+
       <transition name="slide" mode="out-in">
-        <keep-alive exclude="Card">
+
+        <keep-alive :exclude="/^\w{4}$/">
           <component :is="currentComponent" />
         </keep-alive>
+
       </transition>
+
     </div>
     <button @click="prevStep" :disabled="currentStep === 0">
       Prev
@@ -19,8 +25,8 @@
 
 <script>
 import Address from './Address'
-import Spinner from './Spinner'
 import Error from './Error'
+import Spinner from './Spinner'
 
 const allSteps = [
   'Name', 
@@ -31,24 +37,28 @@ const allSteps = [
 
 export default {
   components: { 
-    Address,
-    Card: () => ({
-      component: new Promise((resolve) => 
+    Name: () => import('./Name'), // simple factory function, return Promise which is resolve with the component
+    Card: () => ({ // factory function which return special object which can accept some additional options
+      component: new Promise((resolve) => // should be a Promise
         setTimeout(() => {
           resolve(import('./Card'))
         }, 1500)
       ),
+      delay: 200, // delay before showing the loading component, default: 200ms.
+      error: Error,
       loading: Spinner,
+      timeout: 3000 // default: Infinity
     }),
-    Name: () => import('./Name'),
     ThankYou: () => ({
-      component: new Promise((resolve, reject) => 
+      component: new Promise((resolve) => 
         setTimeout(() => {
-          reject();
+          resolve(import('./ThankYou'))
         }, 1500)
       ),
-      loading: Spinner,
+      delay: 200,
       error: Error,
+      loading: Spinner,
+      timeout: 3000
     }),
   },
   name: 'HelloWorld',
@@ -94,6 +104,9 @@ h1 {
   margin-bottom: 40px;
   font-weight: 400;
 }
+h2, h3, h4, h5 {
+  text-align: left;
+}
 button {
   padding: 5px 10px;
   margin: 5px;
@@ -118,6 +131,5 @@ img {
 }
 .slide-leave-to {
   transform: translate(-100%, 0);
-  opacity: 0;
 }
 </style>

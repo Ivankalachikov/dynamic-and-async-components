@@ -16,5 +16,12 @@
         value: ''
       }
     },
+    activated() {
+      // window.alert('Enter your address, please!')
+      console.log('Address component is activated');
+    },
+    deactivated() {
+      console.log('Address component is deactivated');
+    }
   }
 </script>
